@@ -1,13 +1,1122 @@
-body {
+* {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font-family: Arial, sans-serif;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow-x: hidden; /* Sprječava horizontalni scroll */
+  height: 100vh;
 }
+
+
+
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 25px 70px 25px 75px;
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+  font-size: 25px;
+}
+
+.navbar-icon a {
+  font-size: 24px;
+  font-weight: bold;
+  color:black;
+  text-decoration: none;
+  margin-left: -25px;
+}
+
+.navbar-ul {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  flex-wrap: wrap;
+}
+
+.navbar-ul li{
+  margin-left: 20px;
+  cursor: pointer;
+}
+
+.navbar-ul li a {
+  text-decoration: none;
+  color: black;
+  transition: color 0.5s;
+}
+
+.navbar-ul li a:hover {
+  color:#cb4f22;
+}
+
+.navbar-ul li a.active{
+  color: #cb4f22;
+}
+.profile-menu {
+  position: relative;
+}
+
+.profile-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #cb4f22; /* boja kruga */
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+}
+
+
+.dropdown-menu {
+  position: absolute;
+  top: 35px;  /* Ovisno o visini ikone */
+  right: 0;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 8px 16px;
+  list-style-type: none;
+  margin: 0;
+  min-width: 160px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+
+.dropdown-menu li {
+  padding: 8px 16px;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.dropdown-menu li:hover {
+  background-color: #f0f0f0;
+}
+
+.odjava-btn:hover{
+  color:#cb4f22;
+}
+
+
+
+.auth-container {
+  max-width: 400px;
+  padding: 20px;
+  border: 0.5px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+  margin: 20px auto 50px auto;
+}
+
+.auth-container h2{
+  text-align: center;
+  margin-bottom: 20px;
+  color: #007f86
+}
+
+.register-link{
+  margin-top: 20px;
+  font-size: 13px;
+}
+
+.register-link a {
+  color: #007f86;
+  text-decoration: none;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label{
+  display: block;
+  font-weight: bold;
+}
+
+.form-group label{
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.form-group input{
+  width: 90%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+button[type="submit"] {
+  width: 95%;
+  padding: 12px;
+  background-color: #007f86;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-weight: 800;
+  border-radius: 10px;
+}
+
+button[type="submit"]:hover {
+  background-color: rgb(34,80,128);
+}
+
+.radio-label{
+  display: block;
+  margin-bottom: -5px;
+}
+
+.radio-group{
+  margin-bottom: 15px;
+}
+
+
+
+
+
+.link-button {
+  background-color: #007f86;
+  color:white;
+  padding: 10px;
+  border-radius: 5px;
+  text-decoration: none;
+}
+
+.overlay{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.overlay-content{
+  position: absolute;
+  top: 70%;
+  left: 30%;
+  color: black;
+  justify-content: flex-start;
+}
+
+.header-banner{
+  background-size:cover;
+  background-position: center;
+  position: relative;
+  height: 80vh;
+  width: 100vw;
+  min-height: 100vh;
+  background-repeat: no-repeat;
+}
+
+.header-banner {
+  position: relative;
+  height: 500px;
+}
+
+.header-banner h1{
+  font-size: 30px;
+  color: black;
+  font-weight: lighter;
+}
+
+.oval-text {
+  background-color: white;
+  color: black;
+  padding: 15px 40px; /* Veće vrijednosti za širi oval */
+  border-radius: 60px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  border: 2px solid black;
+}
+
+.arrow-btn {
+  background-color: white;
+  color: black;
+  border: none;
+  padding: 10px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+}
+
+.arrow-btn:hover {
+  background-color: rgb(163, 159, 159);
+}
+
+.header-banner img {
+  width: 100%;
+  height: auto;
+  display: block; /* Uklanja prazne prostore ispod slike */
+}
+
+footer {
+  display: none;
+}
+
+
+
+
+
+.profile-page{
+  position: relative;
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.profile-page h2{
+  text-align:center;
+  margin-bottom: 20px;
+  color:#007f86;
+}
+
+.profile-page h3{
+  color: #007f86;
+}
+
+.profile-actions {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+  gap: 20px;
+}
+
+.profile-actions button{
+  background-color: #007f86;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.profile-actions button:hover{
+  background-color: rgb(34,80,128);
+}
+
+.profile-details{
+  background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.profile-details h3{
+  margin-bottom: 10px;
+}
+
+.error-message{
+  color: red;
+  text-align: center;
+}
+
+.edit-profile-btn:hover {
+  background-color: #45a049; /* Tamnija zelena boja pri hoveru */
+}
+
+.profile-details {
+  margin-bottom: 20px;
+}
+
+.profile-details p{
+  margin: 5px 0;
+}
+
+.edit-profile-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease;
+}
+
+.error-message{
+  color: red;
+  text-align: center;
+}
+
+.winery-actions button,
+button[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin: 10px 0;
+}
+
+button[type="submit"]:hover,
+.winery-actions button:hover {
+    background-color: #45a049;
+}
+
+.winery-form, .timeslot-form {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
+
+.winery-form h3,
+.timeslot-form h3 {
+    font-size: 22px;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #555;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="time"],
+textarea {
+    width: 90%;
+    padding: 10px;
+    margin: 8px 0 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+textarea {
+    resize: vertical;
+    height: 100px;
+}
+
+.timeslot-form .timeslot {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+.timeslot-form .timeslot input {
+    margin-bottom: 10px;
+}
+
+.timeslot-form button {
+    margin-top: 15px;
+    background-color: #4CAF50;
+    color: white;
+    padding: 8px 18px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.timeslot-form button:hover {
+    background-color: #45a049;
+}
+
+button[type="button"]:hover {
+    background-color: #ddd;
+}
+
+
+
+
+
+
+
+.map-istria{
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.map-description{
+  max-width: 400px;
+  margin-left: 80px;
+}
+
+.map-description h2{
+  margin-bottom: 20px;
+}
+
+.map-description p{
+  margin-bottom: 20px;
+}
+
+
+
+
+
+
+.wineries-page {
+  display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px; /* Razmak između vinarija */
+    margin-top: 20px;
+}
+
+.winery-details {
+  display: flex;
+  align-items: center;
+  width: 95%; /* Širina svakog bloka */
+  max-width: 900px;
+  background-color: #f9f9f9; /* Lagana pozadina */
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  gap: 20px;
+}
+
+.winery-image {
+  width: 200px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.winery-info{
+  flex: 1;
+}
+
+
+.reviews-section {
+  margin-top: 20px;
+  padding-top: 10px;
+  border-top: 1px solid #ccc;
+}
+.reviews-section ul {
+  list-style-type: none;
+  padding: 0;
+}
+.reviews-section li {
+  margin-bottom: 15px;
+  background-color: #f7f7f7;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+
+
+
+
+
+.reservation-winery-details {
+  display: flex;
+  align-items: center;
+  width: 90%; /* Širina svakog bloka */
+  background-color: #f9f9f9; /* Lagana pozadina */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  gap: 30px;
+}
+
+.reservation-winery-image {
+  width: 250px;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.reservation-winery-info{
+  flex: 1;
+}
+
+.reservation-winery-extras{
+  padding-top: 10px;
+}
+
+.custom-datepicker {
+  padding: 8px;
+  font-size: 14px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  text-align: center;
+  margin-bottom: 10px;
+  width: 400px;
+}
+.guest-div {
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+.guest-div label {
+  margin-right: 10px;
+}
+
+.guest-div input[type="number"],
+.guest-div input[type="tel"] {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 400px;
+}
+
+.day-schedule{
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+.day-schedule select {
+  padding: 8px;
+  font-size: 14px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  width: 400px;
+  margin-top: 5px;
+}
+
+.save-reservation{
+  max-width: 1200px;
+    padding: 30px;
+    border: 0.5px solid #ccc;
+    border-radius: 10px;
+    background-color: #fff;
+    margin: 40px auto 60px auto;
+}
+
+.reserve-button{
+  margin-bottom: 10px;
+  width: 400px; /* isto kao inputi */
+  padding: 14px 0; /* više u visinu */
+  font-size: 16px;
+  background-color: #007f86;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.reserve-button button:hover {
+  background-color: rgb(34, 80, 128);
+}
+
+.save-reservation .guest-div label,
+.save-reservation .day-schedule h4,
+.save-reservation .day-schedule p {
+  color: #555;
+}
+.booked {
+  background-color: #f44336 !important; /* crveno */
+  color: white !important;
+  border-radius: 50%;
+}
+
+.partially-booked {
+  background-color: #ffeb3b !important; /* žuto */
+  color: black !important;
+  border-radius: 50%;
+}
+
+.reservation-content {
+  display: flex;
+  gap: 30px;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.calendar-container {
+  flex: 0 0 280px; /* širina kalendara */
+  background-color: #fafafa;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.reservation-details {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+}
+
+
+
+.winemaker-card {
+  background-color: #fff;
+  border-radius: 16px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  padding: 20px;
+  margin: 10px;
+  border: 1px solid #e0e0e0;
+  transition: transform 0.2s ease;
+}
+.winemaker-card:hover {
+  transform: translateY(-4px);
+}
+.card-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+}
+.approve-btn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 8px 14px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.approve-btn:hover {
+  background-color: #45a049;
+}
+.delete-btn {
+  background-color: #f44336;
+  color: white;
+  padding: 8px 14px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.delete-btn:hover {
+  background-color: #e53935;
+}
+
+
+
+.user-reservations {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem; /* razmak između rezervacija */
+  padding: 1rem;
+}
+
+.reservation-card {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  background-color: #f9f9f9;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  gap: 1.5rem;
+}
+
+.reservation-image {
+  width: 200px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-left: auto; /* gura sliku desno */
+}
+
+.reservation-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.reservation-status {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  padding: 0.4rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: bold;
+  color: white;
+}
+
+.approved {
+  background-color: #4caf50;
+}
+
+.pending {
+  background-color: #ff9800;
+}
+
+.unknown {
+  background-color: #9e9e9e;
+}
+
+.review-btn {
+  background-color: rgb(66, 149, 243);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease;
+}
+
+.review-form {
+  margin-top: 1px;
+  padding: 8px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  width: 100%;
+}
+
+.review-form textarea {
+  width: 100%;
+  height: 70px;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  font-family: inherit;
+  resize: vertical;
+  box-sizing: border-box;
+}
+
+.review-buttons {
+  margin-top: 1px;
+  display: flex;
+  gap: 1px;
+  flex-wrap: wrap;
+}
+
+.submit-review-btn {
+  background-color: #cb4f22;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.2s ease;
+}
+
+.cancel-edit-btn {
+  background-color: #6c757d;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.edit-review-btn,
+.delete-review-btn {
+  background-color: #007bff;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.2s ease;
+}
+
+.delete-review-btn {
+  background-color: #dc3545;
+}
+
+.review-action-buttons {
+  margin-top: 8px;
+  display: flex;
+  gap: 10px;
+}
+
+
+
+
+
+
+.schedule-container {
+  margin-top: 2rem;
+  font-family: Arial, sans-serif;
+  color: #333;
+}
+
+.schedule-container h2 {
+  font-size: 1.4rem;
+  color: #000;
+  margin-bottom: 1rem;
+}
+.schedule-container .schedule-item {
+  background-color: #fff; /* Bijela pozadina za svaki dan */
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.schedule-container h3 {
+  font-size: 1.2rem;
+  color: #000;
+  margin-bottom: 0.5rem;
+}
+
+.schedule-container ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.schedule-container ul li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f4f4f4; /* Svijetla pozadina za termin */
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 0.8rem;
+  font-size: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.schedule-container ul li:hover {
+  background-color: #e1f5fe;
+}
+
+.schedule-container .slot-details {
+  font-size: 0.9rem; /* Manji tekst za detalje */
+  color: #000;
+}
+
+.schedule-container .slot-details span {
+  color: #000;
+}
+
+.schedule-container .slot-details {
+  font-size: 1rem;
+  color: #000;
+}
+
+.slot-details {
+  display: flex;
+  gap: 15px; /* Razmak između elemenata */
+  font-size: 14px;
+  font-weight: normal;
+}
+
+
+
+
+
+.edit-profile-container {
+  max-width: 100%;
+  margin: 40px auto;
+  padding: 30px;
+  background-color: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.page-title {
+  text-align: center;
+  font-size: 28px;
+  color: #333;
+  margin-bottom: 30px;
+}
+
+.section {
+  margin-bottom: 30px;
+}
+
+.section-title {
+  font-size: 20px;
+  color: #444;
+  margin-bottom: 15px;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 5px;
+}
+
+.input-label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 500;
+  color: #333;
+}
+
+.input-field {
+  width: 100%;
+  padding: 10px 12px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: border-color 0.3s ease;
+}
+
+.input-field:focus {
+  border-color: #6c63ff;
+  outline: none;
+}
+
+.textarea-field {
+  width: 100%;
+  min-height: 100px;
+  padding: 10px 12px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+  resize: vertical;
+}
+
+.schedule-section .day-slot {
+  margin-bottom: 20px;
+}
+
+.day-title {
+  font-size: 16px;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+.slot-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.slot-row input {
+  flex: 1 1 120px;
+}
+
+.save-button {
+  display: block;
+  margin: 2rem auto;
+  padding: 0.75rem 2rem;
+  background-color: #6c63ff;
+  color: white;
+  font-weight: 600;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.save-button:hover {
+  background-color: #4f47d0;
+}
+
+.time-slot-labels {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.time-slot-labels label {
+  width: 23%; /* Možeš prilagoditi širinu ako treba */
+}
+
+.slot-row input {
+  margin-bottom: 10px;
+  width: 23%;
+}
+.day-title {
+  color: black; /* Postavljamo crnu boju za naslove dana */
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.del-button, .add-button {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid #000;
+  background-color: #fff;
+  font-size: 20px;
+  font-weight: bold;
+  color: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.del-button {
+  background-color: #ff4d4d;
+  color: white;
+}
+
+.add-button {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.section-toggle-btn {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 1rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #3d3d3d;
+  background: none;
+  border: none;
+  border-bottom: 1px solid #e0e0e0;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.section-toggle-btn:hover {
+  background-color: #f4f4f4;
+}
+
+.section-toggle-btn:focus {
+  outline: none;
+  background-color: #eaeaea;
+}
+
+.gotovo-btn {
+  display: block;
+  margin: 2rem auto;
+  padding: 0.75rem 2rem;
+  background-color: #7e1e48;
+  color: white;
+  border: none;
+  border-radius: 30px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.gotovo-btn:hover {
+  background-color: #a32f61;
+}
+
