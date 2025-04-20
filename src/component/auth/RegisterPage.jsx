@@ -14,14 +14,16 @@ function RegisterPage(){
 
     const [errorMessage, setErrorMessage] = useState('');
     const [succesMessage, setSuccesMessage] = useState('');
+    const [selectedRole, setSelectedRole] = useState('');
 
     const handleInputChange = (e) => {
         const {name,value} = e.target;
         setFormData({...formData, [name]: value});
     };
 
-    const handleRoleChange = (event) => {
-        setFormData({...formData, role: event.target.value});
+    const handleRoleSelection = (role) => {
+        setSelectedRole(role);
+        setFormData({...formData, role});
     };
 
     const validateForm = () => {
@@ -66,6 +68,12 @@ function RegisterPage(){
             {errorMessage && <p className="error-message">{errorMessage}</p>}
             {succesMessage && <p className="succes-message">{succesMessage}</p>}
             <h2>Registracija</h2>
+            {!selectedRole ? (
+                <div className="role-selection">
+                    <button onClick={() => handleRoleSelection("USER")} className="role-button user" >Registriraj se kao korisnik</button>
+                    <button onClick={() => handleRoleSelection("WINEMAKER")} className="role-button winemaker" >Registriraj se kao vinar</button>
+                </div>
+            ) : (
             <form onSubmit = {handleSubmit}>
                 <div className="form-group">
                     <label>Ime: </label>
@@ -83,31 +91,9 @@ function RegisterPage(){
                     <label>Lozinka: </label>
                     <input type="password" name="password" value={formData.password} onChange={handleInputChange} required/>
                 </div>
-                <div className="radio-group">
-                    <label className="radio-label">
-                        <input
-                        type="radio"
-                        name="role"
-                        value="USER"
-                        checked={formData.role === "USER"}
-                        onChange={handleRoleChange}
-                        />
-                        Korisnik
-                    </label>
-                    <br />
-                    <label className="radio-label">
-                        <input
-                        type="radio"
-                        name="role"
-                        value="WINEMAKER"
-                        checked={formData.role === "WINEMAKER"}
-                        onChange={handleRoleChange}
-                        />
-                        Vinar
-                    </label>
-                </div>
                 <button type="submit">Registracija</button>
             </form>
+            )}
             <p className="register-link">
                 Vec imate račun? <a href="/login">Prijavite se</a>
             </p>
