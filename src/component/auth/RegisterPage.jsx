@@ -77,11 +77,11 @@ function RegisterPage(){
             <form onSubmit = {handleSubmit}>
                 <div className="form-group">
                     <label>Ime: </label>
-                    <input type="text" name="name" value={formData.name} onChange={handleInputChange} required/>
+                    <input className="input-register" name="name" value={formData.name} onChange={handleInputChange} required/>
                 </div>
                 <div className="form-group">
                     <label>Prezime: </label>
-                    <input type="text" name="lastname" value={formData.lastname} onChange={handleInputChange} required/>
+                    <input className="input-register" name="lastname" value={formData.lastname} onChange={handleInputChange} required/>
                 </div>
                 <div className="form-group">
                     <label>Email: </label>

@@ -149,6 +149,12 @@ html, body {
   display: block;
   font-weight: bold;
   margin-bottom: 5px;
+  padding-top: 0%;
+  padding-bottom: 0%;
+}
+
+.input-register{
+  padding-bottom: 0%;
 }
 
 .form-group input{
@@ -428,8 +434,16 @@ label {
     margin-bottom: 5px;
     font-weight: bold;
     color: #555;
+    padding-top: 15px;
+    padding-left: 15px;
 }
 
+.btn-add{
+  margin-left: 15px;
+}
+
+
+input[type="text"],
 input[type="number"],
 input[type="time"],
 textarea {
@@ -439,6 +453,7 @@ textarea {
     border: 1px solid #ddd;
     border-radius: 5px;
     font-size: 16px;
+    padding-left: 15px;
 }
 
 input[type="checkbox"] {
@@ -449,6 +464,7 @@ textarea {
     resize: vertical;
     height: 100px;
 }
+
 
 .timeslot-form .timeslot {
     display: flex;

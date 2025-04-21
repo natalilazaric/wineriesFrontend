@@ -16,6 +16,8 @@ const ProfilePage = () => {
     const [extras, setExtras] = useState([{ key: "", value: "" }]);
 
     const wineList = wines ? (Array.isArray(wines) ? wines : Object.values(wines)) : [];
+
+    
     const navigate = useNavigate();
 
     const [showWineryForm, setShowWineryForm] = useState(false);
@@ -85,7 +87,7 @@ const ProfilePage = () => {
                 const response = await ApiService.getUserInfo();
                 setUser(response.user);
                 const result = await ApiService.getWineryByUserId(response.user.id);
-                console.log("REZULTAT JE: ", JSON.stringify(result));
+                
                 if(result && result.winery){
                     setWinery(result.winery);
                     const winesbywinery = await ApiService.getWinesByWineryId(result.winery.id);
@@ -94,7 +96,7 @@ const ProfilePage = () => {
 
                     const data = await ApiService.getScheduleByWineryId(result.winery.id);
                     const grouped = groupByDayOfWeek(data.scheduleList);
-                    console.log("grouped je: ", grouped);
+                    
                     setSchedules(grouped);
                 } else{
                     console.log("vinarija nije pronađena")

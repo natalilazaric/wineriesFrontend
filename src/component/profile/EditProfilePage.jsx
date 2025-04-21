@@ -12,6 +12,10 @@ const EditProfilePage = () => {
         Pon: [], Uto: [], Sri: [], Čet: [], Pet: [], Sub: [], Ned: []
     });
 
+    const [wines, setWines] = useState(null);
+    const wineList = wines ? (Array.isArray(wines) ? wines : Object.values(wines)) : [];
+
+
     const [extras, setExtras] = useState([]);
     const mapToArray = (mapObj) => {
         return Object.entries(mapObj || {}).map(([key, value]) => ({ key, value }));
@@ -74,6 +78,8 @@ const EditProfilePage = () => {
                     const scheduleResponse = await ApiService.getScheduleByWineryId(wineryResponse.winery.id);
                     const grouped = groupByDayOfWeek(scheduleResponse.scheduleList);
                     setTimeSlots(grouped);
+                    const winesbywinery = await ApiService.getWinesByWineryId(wineryResponse.winery.id);
+                    setWines(winesbywinery.wineNames);
                 }
             }
         };
@@ -184,18 +190,32 @@ const EditProfilePage = () => {
                         <textarea name="description" value={winery.description} onChange={handleWineryChange} placeholder="Opis" />
                         <label>Cijena po osobi (EUR):</label>
                         <input type="number" name="price" value={winery.price} onChange={handleWineryChange} placeholder="Cijena" />
-                        <label>Poslužujete hranu?</label>
-                        <input type="checkbox" name="food" checked={winery.food} onChange={handleWineryChange} />
+                        <label>Poslužujete hranu? <input type="checkbox" name="food" checked={winery.food} onChange={handleWineryChange} /></label>
+                        <label>Vrste vina:</label>
+                        {wineList.map((wine, index) => (
+                            <div key={index} className="wine-row">
+                                <input
+                                    type="text"
+                                    value={wine}
+                                    onChange={(e) => {
+                                        const updated = [...wineList];
+                                        updated[index] = e.target.value;
+                                        setWines(updated);
+                                    }}
+                                />
+                                <button type="button" onClick={() => {
+                                    const updated = [...wineList];
+                                    updated.splice(index, 1);
+                                    setWines(updated);
+                                }}>-</button>
+                            </div>
+                        ))}
+                        <button className="btn-add" type="button" onClick={() => setWines([...wineList, ""])}>+</button>
 
                         
                         <label>Dodatne informacije:</label>
                         <table>
                             <thead>
-                                <tr>
-                                    <th>Naziv opcije</th>
-                                    <th>Opis</th>
-                                    <th></th>
-                                </tr>
                             </thead>
                             <tbody>
                                 {extras.map((extra, index) => (
@@ -218,7 +238,6 @@ const EditProfilePage = () => {
                                         </td>
                                         <td>
                                             <button
-                                                className="del-button"
                                                 type="button"
                                                 onClick={() => handleDeleteExtra(index)}
                                             >
@@ -229,7 +248,7 @@ const EditProfilePage = () => {
                                 ))}
                             </tbody>
                         </table>
-                        <button className="add-button" type="button" onClick={handleAddExtra}>+</button>
+                        <button className="btn-add" type="button" onClick={handleAddExtra}>+</button>
                     
 
                         <label>Lokacija:</label>
@@ -244,10 +263,12 @@ const EditProfilePage = () => {
                         
                         <button className="save-button" onClick={async () => {
                             try {
+                                const wineString = wineList.join(", ");
                                 await ApiService.updateWinery(winery.id, {
                                     ...winery,
                                     extras: arrayToMap(extras)
-                                });
+                                },wineString);
+                                
                                 setActiveSection(null);
                             } catch (err) {
                                 console.error(err);

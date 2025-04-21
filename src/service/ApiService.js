@@ -123,13 +123,28 @@ export default class ApiService{
         return response.data
     }
 
-    static async updateWinery(wineryId, winery){
-        const response = await axios.put(`${this.BASE_URL}/wineries/update-winery/${wineryId}`, winery, {
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-        return response.data
+    static async updateWinery(wineryId, winery, wines) {
+        try {
+            console.log("u funkciji su vina: ", wines);
+        
+            const data = {
+                winery: winery,
+                wines: wines
+            };
+            console.log("Šaljem update vinarije:", data);
+        
+            const response = await axios.put(`${this.BASE_URL}/wineries/update-winery/${wineryId}`, data, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+        
+            console.log("Odgovor od backend-a:", response);
+        
+            return response.data;
+        } catch (error) {
+            console.error("Došlo je do pogreške:", error);
+        }
     }
 
     static async updateSchedule(wineryId, scheduleData){
