@@ -303,6 +303,7 @@ const ProfilePage = () => {
                         type="file"
                         onChange={handleFileChange}
                         accept="image/*"
+                        required
                     />
                     </div>
                     <div>
