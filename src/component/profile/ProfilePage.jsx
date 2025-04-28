@@ -14,6 +14,7 @@ const ProfilePage = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [schedules, setSchedules] = useState([]);
     const [extras, setExtras] = useState([{ key: "", value: "" }]);
+    const [offers, setOffers] = useState([{ type: "", price: "" }]);
 
     const wineList = wines ? (Array.isArray(wines) ? wines : Object.values(wines)) : [];
 
@@ -35,6 +36,22 @@ const ProfilePage = () => {
 
     const [photo, setPhoto] = useState(null);
     const [file, setFile] = useState(null);
+
+    const handleAddOffer = () => {
+        setOffers([...offers, { type: "", price: "" }]);
+      };
+
+    const handleOfferChange = (index, e) => {
+        const { name, value } = e.target;
+        const newOffers = [...offers];
+        newOffers[index][name] = value;
+        setOffers(newOffers);
+      };
+    
+    const handleRemoveOffer = (index) => {
+        const newOffers = offers.filter((_, i) => i !== index);
+        setOffers(newOffers);
+      };
 
     const handleAddExtra = () => {
         setExtras([...extras, { key: "", value: "" }]);
@@ -198,6 +215,13 @@ const ProfilePage = () => {
             }
             return acc;
         }, {}));
+
+        const offersJson = JSON.stringify(offers.reduce((acc, { type, price }) => {
+            if (type && price) {
+              acc[type] = price;
+            }
+            return acc;
+          }, {}));
     
         const formData = new FormData();
         formData.append("photo", photo);
@@ -210,6 +234,7 @@ const ProfilePage = () => {
         formData.append("latitude", wineryData.latitude);
         formData.append("longitude", wineryData.longitude);
         formData.append("extras", extrasJson);
+        formData.append("offers", offersJson);
 
     
         try {
@@ -230,7 +255,8 @@ const ProfilePage = () => {
                     }))
             );
             console.log("Šaljem termine:", flatTimeSlots);
-
+            
+        console.log("formdata je: " ,formData)
           const response = await ApiService.addWinery(user.id, formData); 
           console.log("response.winery jee: ",response.winery)
           setWinery(response.winery);
@@ -362,17 +388,51 @@ const ProfilePage = () => {
                         onChange={handleWineryFormChange}
                     />
                     </div>
+                    
+                    <div>
+                    <label>Ponude:</label>
+                    <table>
+                        <tbody>
+                        {offers.map((offer, index) => (
+                            <tr key={index}>
+                            <td>
+                                <input
+                                type="text"
+                                name="type"
+                                value={offer.type}
+                                onChange={(e) => handleOfferChange(index, e)}
+                                placeholder="Unesite vrstu ponude"
+                                />
+                            </td>
+                            <td>
+                                <input
+                                type="number"
+                                name="price"
+                                value={offer.price}
+                                onChange={(e) => handleOfferChange(index, e)}
+                                placeholder="Unesite cijenu"
+                                />
+                            </td>
+                            <td>
+                                <button
+                                className="del-button"
+                                type="button"
+                                onClick={() => handleRemoveOffer(index)}
+                                disabled={offers.length <= 1}
+                                >
+                                -
+                                </button>
+                            </td>
+                            </tr>
+                        ))}
+                        </tbody>
+                    </table>
+                    <button className="add-button" type="button" onClick={handleAddOffer}>+</button>
+                    </div>
 
-                        <div>
-                            <label>Dodatne informacije:</label>
+                    <div>
+                        <label>Dodatne informacije:</label>
                             <table>
-                                <thead>
-                                <tr>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                </tr>
-                                </thead>
                                 <tbody>
                                 {extras.map((extra, index) => (
                                     <tr key={index}>
@@ -411,6 +471,7 @@ const ProfilePage = () => {
                             </table>
                             <button className="add-button" type="button" onClick={handleAddExtra}>+</button>
                             </div>
+
                             <div>
                             <label>Lokacija:</label>
                             <input
@@ -499,9 +560,19 @@ const ProfilePage = () => {
                             <p><strong>Lokacija:</strong> {winery.location}</p>
                             <p><strong>Opis:</strong> {winery.description}</p>
                             
-                            <p><strong>Cijena:</strong> {winery.price}€</p>
                             <p><strong>Poslužujete hranu?</strong> {winery.food ? "Da" : "Ne"}</p>
                             <p><strong>Vrste vina:</strong> {wineList.length > 0 ? wineList.join(", ") : "Nema dostupnih vina"}</p>
+
+                            <div className="reservation-winery-extras">
+                                <p><strong>Ponude:</strong></p>
+                                {winery.offers && (
+                                    <div>
+                                        {Object.entries(winery.offers).map(([key, value]) => (
+                                            <p key={key}>{key} - {value}€</p>
+                                        ))}
+                                    </div>
+                                )}
+                            </div>
                             <div className="reservation-winery-extras">
                                 <p><strong>Dodatne informacije:</strong></p>
                                 {winery.extras && (

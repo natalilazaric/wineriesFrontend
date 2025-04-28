@@ -15,6 +15,8 @@ const EditProfilePage = () => {
     const [wines, setWines] = useState(null);
 
     const [extras, setExtras] = useState([]);
+    const [offers, setOffers] = useState([]);
+
     const mapToArray = (mapObj) => {
         return Object.entries(mapObj || {}).map(([key, value]) => ({ key, value }));
     };
@@ -73,6 +75,7 @@ const EditProfilePage = () => {
                     const fetchedWinery = wineryResponse.winery;
                     setWinery(wineryResponse.winery);
                     setExtras(mapToArray(fetchedWinery.extras || {}));
+                    setOffers(mapToArray(fetchedWinery.offers || {}));
                     const scheduleResponse = await ApiService.getScheduleByWineryId(wineryResponse.winery.id);
                     const grouped = groupByDayOfWeek(scheduleResponse.scheduleList);
                     setTimeSlots(grouped);
@@ -130,6 +133,28 @@ const EditProfilePage = () => {
         const updated = [...extras];
         updated.splice(index, 1);
         setExtras(updated);
+    };
+
+    const handleOfferKeyChange = (index, newKey) => {
+        const updated = [...offers];
+        updated[index].key = newKey;
+        setOffers(updated);
+    };
+    
+    const handleOfferValueChange = (index, newValue) => {
+        const updated = [...offers];
+        updated[index].value = newValue;
+        setOffers(updated);
+    };
+    
+    const handleAddOffer = () => {
+        setOffers(prev => [...prev, { key: "", value: "" }]);
+    };
+    
+    const handleDeleteOffer = (index) => {
+        const updated = [...offers];
+        updated.splice(index, 1);
+        setOffers(updated);
     };
     
 
@@ -212,7 +237,43 @@ const EditProfilePage = () => {
                                 </label>
                             ))}
                         </div>
-                        
+
+                        <label>Ponude:</label>
+                        <table>
+                            <thead>
+                            </thead>
+                            <tbody>
+                                {offers.map((offer, index) => (
+                                    <tr key={index}>
+                                        <td>
+                                            <input
+                                                type="text"
+                                                value={offer.key}
+                                                onChange={(e) => handleOfferKeyChange(index, e.target.value)}
+                                                placeholder="Ponuda"
+                                            />
+                                        </td>
+                                        <td>
+                                            <input
+                                                type="text"
+                                                value={offer.value}
+                                                onChange={(e) => handleOfferValueChange(index, e.target.value)}
+                                                placeholder="Cijena"
+                                            />
+                                        </td>
+                                        <td>
+                                            <button
+                                                type="button"
+                                                onClick={() => handleDeleteOffer(index)}
+                                            >
+                                                -
+                                            </button>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                        <button className="btn-add" type="button" onClick={handleAddOffer}>+</button>
                         
                         <label>Dodatne informacije:</label>
                         <table>
@@ -267,7 +328,8 @@ const EditProfilePage = () => {
                                 const wineString = wines.join(", ");
                                 await ApiService.updateWinery(winery.id, {
                                     ...winery,
-                                    extras: arrayToMap(extras)
+                                    extras: arrayToMap(extras),
+                                    offers: arrayToMap(offers)
                                 },wineString);
                                 
                                 setActiveSection(null);
