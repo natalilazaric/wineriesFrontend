@@ -13,8 +13,6 @@ const EditProfilePage = () => {
     });
 
     const [wines, setWines] = useState(null);
-    const wineList = wines ? (Array.isArray(wines) ? wines : Object.values(wines)) : [];
-
 
     const [extras, setExtras] = useState([]);
     const mapToArray = (mapObj) => {
@@ -79,7 +77,11 @@ const EditProfilePage = () => {
                     const grouped = groupByDayOfWeek(scheduleResponse.scheduleList);
                     setTimeSlots(grouped);
                     const winesbywinery = await ApiService.getWinesByWineryId(wineryResponse.winery.id);
-                    setWines(winesbywinery.wineNames);
+                    const wineArray = Array.isArray(winesbywinery.wineNames)
+                    ? winesbywinery.wineNames.map(w => w.trim())
+                    : winesbywinery.wineNames.split(",").map(w => w.trim());
+
+                    setWines(wineArray.filter(w => w));
                 }
             }
         };
@@ -192,26 +194,25 @@ const EditProfilePage = () => {
                         <input type="number" name="price" value={winery.price} onChange={handleWineryChange} placeholder="Cijena" />
                         <label>Poslužujete hranu? <input type="checkbox" name="food" checked={winery.food} onChange={handleWineryChange} /></label>
                         <label>Vrste vina:</label>
-                        {wineList.map((wine, index) => (
-                            <div key={index} className="wine-row">
-                                <input
-                                    type="text"
-                                    value={wine}
-                                    onChange={(e) => {
-                                        const updated = [...wineList];
-                                        updated[index] = e.target.value;
-                                        setWines(updated);
-                                    }}
-                                />
-                                <button type="button" onClick={() => {
-                                    const updated = [...wineList];
-                                    updated.splice(index, 1);
-                                    setWines(updated);
-                                }}>-</button>
-                            </div>
-                        ))}
-                        <button className="btn-add" type="button" onClick={() => setWines([...wineList, ""])}>+</button>
-
+                        <div className="wines-checkbox-group">
+                            {["Malvazija", "Muškat", "Chardonnay", "Rose", "Teran", "Pinot", "Cabarnet Sauvignon", "Merlot", "Refošk"].map((wineName) => (
+                                <label key={wineName} style={{ display: 'block', marginBottom: '5px' }}>
+                                    <input
+                                        type="checkbox"
+                                        checked={wines?.includes(wineName)}
+                                        onChange={(e) => {
+                                            if (e.target.checked) {
+                                                setWines(prev => [...prev, wineName]);
+                                            } else {
+                                                setWines(prev => prev.filter(w => w !== wineName));
+                                            }
+                                        }}
+                                    />
+                                    {wineName}
+                                </label>
+                            ))}
+                        </div>
+                        
                         
                         <label>Dodatne informacije:</label>
                         <table>
@@ -263,7 +264,7 @@ const EditProfilePage = () => {
                         
                         <button className="save-button" onClick={async () => {
                             try {
-                                const wineString = wineList.join(", ");
+                                const wineString = wines.join(", ");
                                 await ApiService.updateWinery(winery.id, {
                                     ...winery,
                                     extras: arrayToMap(extras)

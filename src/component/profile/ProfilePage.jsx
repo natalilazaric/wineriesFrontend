@@ -142,6 +142,22 @@ const ProfilePage = () => {
         }
       };
 
+      const handleWineCheckboxChange = (e) => {
+        const { value, checked } = e.target;
+        let updatedWines = wineryData.wines ? wineryData.wines.split(", ") : [];
+      
+        if (checked) {
+          updatedWines.push(value);
+        } else {
+          updatedWines = updatedWines.filter((wine) => wine !== value);
+        }
+      
+        setWineryData({
+          ...wineryData,
+          wines: updatedWines.join(", "),
+        });
+      };
+
       const handleAddTimeSlot = (day, newSlot) => {
         setTimeSlots((prevSlots) => ({
             ...prevSlots,
@@ -306,15 +322,25 @@ const ProfilePage = () => {
                         required
                     />
                     </div>
+
                     <div>
                     <label>Vrste vina:</label>
-                    <input
-                        type="text"
-                        name="wines"
-                        value={wineryData.wines}
-                        onChange={handleWineryFormChange}
-                        required
-                    />
+                    <div>
+                        {["Malvazija", "Muškat", "Chardonnay", "Rose", "Teran", "Pinot", "Cabarnet Sauvignon", "Merlot", "Refošk"].map((wine) => (
+                        <div key={wine}>
+                            <label>
+                            <input
+                                type="checkbox"
+                                name="wines"
+                                value={wine}
+                                checked={wineryData.wines.includes(wine)}
+                                onChange={(e) => handleWineCheckboxChange(e)}
+                            />
+                            {wine}
+                            </label>
+                        </div>
+                        ))}
+                    </div>
                     </div>
 
                     <div>
