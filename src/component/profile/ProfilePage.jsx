@@ -25,7 +25,6 @@ const ProfilePage = () => {
     const [wineryData, setWineryData] = useState({
         name: '',
         location: '',
-        price: '',
         food: false,
         description: '',
         wines:'',
@@ -227,7 +226,6 @@ const ProfilePage = () => {
         formData.append("photo", photo);
         formData.append("name", wineryData.name);
         formData.append("location", wineryData.location);
-        formData.append("price", wineryData.price);
         formData.append("food", wineryData.food);
         formData.append("description", wineryData.description);
         formData.append("wines", wineryData.wines);
@@ -369,16 +367,6 @@ const ProfilePage = () => {
                     </div>
                     </div>
 
-                    <div>
-                    <label>Cijena:</label>
-                    <input
-                        type="number"
-                        name="price"
-                        value={wineryData.price}
-                        onChange={handleWineryFormChange}
-                        required
-                    />
-                    </div>
                     <div>
                     <label>Poslužujete hranu?</label>
                     <input
@@ -559,7 +547,6 @@ const ProfilePage = () => {
                             <p><strong>Ime vinarije:</strong> {winery.name}</p>
                             <p><strong>Lokacija:</strong> {winery.location}</p>
                             <p><strong>Opis:</strong> {winery.description}</p>
-                            
                             <p><strong>Poslužujete hranu?</strong> {winery.food ? "Da" : "Ne"}</p>
                             <p><strong>Vrste vina:</strong> {wineList.length > 0 ? wineList.join(", ") : "Nema dostupnih vina"}</p>
 

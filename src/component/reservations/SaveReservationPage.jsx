@@ -21,6 +21,7 @@ const SaveReservationPage  = () => {
     const [dailyTerms, setDailyTerms] = useState([]);
     const [selectedTimeSlot, setSelectedTimeSlot] = useState(null);
     const [allSchedules, setAllSchedules] = useState([]);
+    const [selectedOffer, setSelectedOffer] = useState('');
 
     const [reservations, setReservations] = useState([]);
     const [bookedDates, setBookedDates] = useState([]);
@@ -63,6 +64,7 @@ const SaveReservationPage  = () => {
             };
 
             setSelectedWinery(updatedWinery);
+            console.log("selectedWinery je: ", updatedWinery);
             console.log("PODACI O VINARIJI",updatedWinery);
             const data = await ApiService.getScheduleByWineryId(wineryId);
             setAllSchedules(data.scheduleList);
@@ -77,7 +79,7 @@ const SaveReservationPage  = () => {
           }catch(error){
             setError(error.response?.data?.message || error.message);
           }finally {
-            setIsLoading(false); // Set loading state to false after fetching or error
+            setIsLoading(false); 
           }
         };
         fetchWinery();
@@ -131,7 +133,7 @@ const SaveReservationPage  = () => {
             const numberOfReservations = matchingReservations.length;
 
             if (term.maxReservations === 0) {
-              return totalGuests < term.maxGuests; // dozvoli termin ako još nije pun
+              return totalGuests < term.maxGuests; 
             } else {
               return !(
                 (numberOfReservations >= term.maxReservations && totalGuests <= term.maxGuests) ||
@@ -257,13 +259,15 @@ const SaveReservationPage  = () => {
         const dayOfWeek = getDayString(selectedDate);
         const [startTime, endTime] = selectedTimeSlot.split(" - ");
 
+
         const reservationData = {
           date: formattedDate, // Formatiraj datum u "yyyy-MM-dd"
           numberOfGuests: numGuests,
           dayOfWeek:dayOfWeek,
           startTime:startTime.trim(),
           endTime:endTime.trim(),
-          state:"PENDING"
+          state:"PENDING",
+          offer: selectedOffer
         };
 
         console.log("Šaljem rezervaciju:", reservationData);
@@ -294,7 +298,6 @@ const SaveReservationPage  = () => {
                         <p><strong>Ime vinarije:</strong> {selectedWinery.name}</p>
                         <p><strong>Lokacija:</strong> {selectedWinery.location}</p>
                         <p><strong>Opis:</strong> {selectedWinery.description}</p>
-                        <p><strong>Cijena:</strong> {selectedWinery.price}€</p>
                         <p><strong>Poslužujete hranu?</strong> {selectedWinery.food ? "Da" : "Ne"}</p>
                         <p><strong>Vrste vina:</strong> {selectedWinery.wines.length > 0 ? selectedWinery.wines.join(", ") : "Nema dostupnih vina"}</p>
                         <div className="reservation-winery-extras">
@@ -309,6 +312,19 @@ const SaveReservationPage  = () => {
                         </div>
                     </div>
               </div>
+              {selectedWinery.offers && Object.keys(selectedWinery.offers).length > 0 && (
+                <div className="day-schedule">
+                  <label>Odaberite ponudu:</label>
+                  <select value={selectedOffer} onChange={(e) => setSelectedOffer(e.target.value)}>
+                    <option value="">Odaberite ponudu</option>
+                    {Object.entries(selectedWinery.offers).map(([offerName, price]) => (
+                      <option key={offerName} value={offerName}>
+                        {offerName} - {price}€
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              )}
               <div>
                   <label>Odaberite datum:</label>
                   <DatePicker 
@@ -326,7 +342,7 @@ const SaveReservationPage  = () => {
               </div>
 
               {selectedDate && (
-                <div className="day-schedule" style={{ marginTop: '1rem' }}>
+                <div className="day-schedule" >
                   <h4>Termini za {getDayString(selectedDate)}:</h4>
                   {dailyTerms.length > 0 ? (
                     <select

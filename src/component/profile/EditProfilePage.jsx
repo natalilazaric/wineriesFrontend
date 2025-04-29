@@ -215,8 +215,6 @@ const EditProfilePage = () => {
                         <input type="text" name="name" value={winery.name} onChange={handleWineryChange} placeholder="Ime vinarije" />
                         <label>Opis vinarije:</label>
                         <textarea name="description" value={winery.description} onChange={handleWineryChange} placeholder="Opis" />
-                        <label>Cijena po osobi (EUR):</label>
-                        <input type="number" name="price" value={winery.price} onChange={handleWineryChange} placeholder="Cijena" />
                         <label>Poslužujete hranu? <input type="checkbox" name="food" checked={winery.food} onChange={handleWineryChange} /></label>
                         <label>Vrste vina:</label>
                         <div className="wines-checkbox-group">
