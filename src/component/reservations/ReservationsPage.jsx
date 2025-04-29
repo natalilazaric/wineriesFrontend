@@ -295,6 +295,7 @@ const ReservationsPage = () => {
                     <div className="reservation-info">
                         <p><strong>Ime vinarije:</strong> {reservation.winery.name}</p>
                         <p><strong>Lokacija:</strong> {reservation.winery.location}</p>
+                        <p><strong>Odabrana ponuda:</strong> {reservation.offer}</p>
                         <p><strong>Datum rezervacije:</strong> {reservation.date}</p>
                         <p><strong>Termin:</strong> {reservation.startTime} - {reservation.endTime}</p>
                         <p><strong>Broj gostiju:</strong> {reservation.numberOfGuests}</p>
