@@ -12,6 +12,7 @@ function MapPage() {
   const [selectedWinery, setSelectedWinery] = useState(null);
   const [wines, setWines] = useState(null);
   const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
   const [reviews, setReviews] = useState([]);
   const navigate = useNavigate();
 
@@ -37,11 +38,16 @@ function MapPage() {
   
       }catch(error){
         setError(error.response?.data?.message || error.message);
-      }
+      }finally {
+        setIsLoading(false); // Uvijek se izvrši
+    }
     };
     fetchWineries();
   }, []);
 
+  if (isLoading) {
+    return <div className="spinner-overlay"><div className="spinner"></div></div>;
+  }
 
   return (
     <div className='map-istria'>

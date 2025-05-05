@@ -12,6 +12,7 @@ const ProfilePage = () => {
     const [wines, setWines] = useState(null);
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
+    const [isProcessingWineryData, setIsProcessingWineryData] = useState(false);
     const [schedules, setSchedules] = useState([]);
     const [extras, setExtras] = useState([{ key: "", value: "" }]);
     const [offers, setOffers] = useState([{ type: "", price: "" }]);
@@ -94,7 +95,8 @@ const ProfilePage = () => {
         iconAnchor: [12, 41],  // Točka gdje je pin na karti (donji centar ikone)
         popupAnchor: [1, -34],  // Točka odakle popup izlazi
       });
-    
+
+       
 
     useEffect(() => {
         const fetchUserProfile = async () => {
@@ -111,7 +113,10 @@ const ProfilePage = () => {
                     setWines(winesbywinery.wineNames);
 
                     const data = await ApiService.getScheduleByWineryId(result.winery.id);
+                    console.log("scheduleList je: ", data.scheduleList);
                     const grouped = groupByDayOfWeek(data.scheduleList);
+                    console.log("grouped je:", grouped);
+
                     
                     setSchedules(grouped);
                 } else{
@@ -252,21 +257,29 @@ const ProfilePage = () => {
                         maxReservations: parseInt(slot.maxReservations,10),
                     }))
             );
-            console.log("Šaljem termine:", flatTimeSlots);
-            
-        console.log("formdata je: " ,formData)
-          const response = await ApiService.addWinery(user.id, formData); 
-          console.log("response.winery jee: ",response.winery)
-          setWinery(response.winery);
-          console.log("wineryId:", response.winery.id);
-          const timeSlotsResponse = await ApiService.addSchedule(response.winery.id, flatTimeSlots);
-          console.log("Time slots added successfully:", timeSlotsResponse);
             
           setShowWineryForm(false);
+          setIsProcessingWineryData(true);
+        
+          const response = await ApiService.addWinery(user.id, formData); 
+          setWinery(response.winery);
+
+          const timeSlotsResponse = await ApiService.addSchedule(response.winery.id, flatTimeSlots);
+          
+          const winesbywinery = await ApiService.getWinesByWineryId(response.winery.id);
+          setWines(winesbywinery.wineNames);
+          const data = await ApiService.getScheduleByWineryId(response.winery.id);
+          const grouped = groupByDayOfWeek(data.scheduleList);
+          setSchedules(grouped);
+
+
+          setTimeout(() => {
+            setIsProcessingWineryData(false);
+        }, 1000);
         
         } catch (error) {
           setError(error.response?.data?.message || error.message);
-        }
+        } 
       };
 
       const LocationMarker = () => {
@@ -290,6 +303,13 @@ const ProfilePage = () => {
     
     return(
         <div className="profile-page">
+            
+            {isProcessingWineryData && (
+            <div className="spinner-overlay">
+                <div className="spinner" />
+                <p>Učitavanje podataka...</p>
+            </div>
+        )}
             {user && <h2>MOJ PROFIL</h2>}
             {user && (
                 <button className="edit-profile-btn" onClick={handleEditProfile}>
@@ -535,6 +555,7 @@ const ProfilePage = () => {
             )}
 
 
+
             {user && winery && !showWineryForm &&(
                 <div>
                     <div className="winery-details">
@@ -601,5 +622,3 @@ const ProfilePage = () => {
 };
 
 export default ProfilePage;
-
-

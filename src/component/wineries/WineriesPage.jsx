@@ -5,10 +5,10 @@ import ApiService from "../../service/ApiService";
 const WineriesPage = () => {
     const [user, setUser] = useState(null);
     const [wineries, setWineries] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
     const navigate = useNavigate();
 
-    // const {data: allWineries} = useAllWineries();
 
     useEffect(() => {
         const fetchWineries = async () => {
@@ -23,7 +23,6 @@ const WineriesPage = () => {
                     console.log("Korisnik nije prijavljen ili nije moguće dohvatiti podatke", err);
                 }
 
-                // Dohvati vina za svaku vinariju
                 const wineriesWithWines = await Promise.all(
                     allWineries.map(async (winery) => {
                         try {
@@ -40,6 +39,8 @@ const WineriesPage = () => {
                 setWineries(wineriesWithWines);
             } catch (error) {
                 setError(error.response?.data?.message || error.message);
+            }finally {
+                setIsLoading(false); // Uvijek se izvrši
             }
         };
 
@@ -47,6 +48,11 @@ const WineriesPage = () => {
     }, []);
     return (
         <div className="wineries-page">
+            {isLoading && (
+                <div className="spinner-overlay">
+                    <div className="spinner"></div>
+                </div>
+                )}
             {wineries && wineries.map((winery) => (
                 <div key={winery.id} className="winery-details">
                     <img 

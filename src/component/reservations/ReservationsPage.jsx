@@ -179,10 +179,14 @@ const ReservationsPage = () => {
         navigate('/reservations');
     }
 
-    if (isLoading) return <p>Učitavanje...</p>;
 
     return (
         <div className="reservations-page">
+            {isLoading && (
+                <div className="spinner-overlay">
+                    <div className="spinner"></div>
+                </div>
+                )}
             { !isLoading && user && user.role ==='USER' ? (
             <div className="user-reservations">
                 {userReservations && userReservations.map((reservation) => (
