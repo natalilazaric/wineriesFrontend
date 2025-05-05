@@ -599,6 +599,22 @@ button[type="button"]:hover {
 }
 
 
+.filter-container {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+  padding: 10px;
+}
+
+.filter-label {
+  margin-bottom: 8px;
+}
+.checkbox-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 20px;
+}
+
 
 
 

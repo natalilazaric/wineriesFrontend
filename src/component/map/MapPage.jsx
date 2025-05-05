@@ -19,10 +19,10 @@ function MapPage() {
   const wineList = wines ? (Array.isArray(wines) ? wines : Object.values(wines)) : [];
   
   const customIcon = new L.Icon({
-    iconUrl: './assets/images/pin_7178080.png',  // Put do ikone (ako koristiš prilagođenu ikonu)
-    iconSize: [35, 35],  // Veličina ikone
-    iconAnchor: [12, 41],  // Točka gdje je pin na karti (donji centar ikone)
-    popupAnchor: [1, -34],  // Točka odakle popup izlazi
+    iconUrl: './assets/images/pin_7178080.png',
+    iconSize: [35, 35],
+    iconAnchor: [12, 41],
+    popupAnchor: [1, -34],
   });
 
   useEffect(() => {
@@ -39,7 +39,7 @@ function MapPage() {
       }catch(error){
         setError(error.response?.data?.message || error.message);
       }finally {
-        setIsLoading(false); // Uvijek se izvrši
+        setIsLoading(false);
     }
     };
     fetchWineries();

@@ -90,10 +90,10 @@ const ProfilePage = () => {
       };
 
     const customIcon = new L.Icon({
-        iconUrl: './assets/images/pin_7178080.png',  // Put do ikone (ako koristiš prilagođenu ikonu)
-        iconSize: [35, 35],  // Veličina ikone
-        iconAnchor: [12, 41],  // Točka gdje je pin na karti (donji centar ikone)
-        popupAnchor: [1, -34],  // Točka odakle popup izlazi
+        iconUrl: './assets/images/pin_7178080.png',
+        iconSize: [35, 35],
+        iconAnchor: [12, 41],  
+        popupAnchor: [1, -34],
       });
 
        
@@ -206,7 +206,7 @@ const ProfilePage = () => {
     
       const handleFileChange = (e) => {
         const selectedFile = e.target.files[0]; 
-        setPhoto(selectedFile); // Za slanje na backend
+        setPhoto(selectedFile); 
         setFile(URL.createObjectURL(selectedFile));
       };
     

@@ -166,7 +166,7 @@ const EditProfilePage = () => {
 
     const handleDeleteTimeSlot = (day, index) => {
         const updatedSlots = [...timeSlots[day]];
-        updatedSlots.splice(index, 1); // Uklanja termin na određenom indeksu
+        updatedSlots.splice(index, 1);
         setTimeSlots({ ...timeSlots, [day]: updatedSlots });
     };
 
@@ -179,7 +179,7 @@ const EditProfilePage = () => {
         };
         setTimeSlots(prev => ({
             ...prev,
-            [day]: [...prev[day], newSlot] // Dodajemo novi slot na kraj
+            [day]: [...prev[day], newSlot]
         }));
     };
 

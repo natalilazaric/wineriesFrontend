@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import ApiService from "../../service/ApiService";
-import { FaUserCircle } from 'react-icons/fa';
 
 function Navbar(){
 

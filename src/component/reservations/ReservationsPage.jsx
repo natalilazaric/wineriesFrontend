@@ -92,7 +92,7 @@ const ReservationsPage = () => {
             if (reservationDate < today && reservation.state !== "FINISHED") {
                 try {
                     await ApiService.pastReservation(reservation.id);
-                    reservation.state = "FINISHED"; // lokalno ažuriraj stanje
+                    reservation.state = "FINISHED"; 
                 } catch (err) {
                     console.error("Greška kod označavanja rezervacije kao završene:", err);
                 }

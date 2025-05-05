@@ -8,6 +8,12 @@ const WineriesPage = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
     const navigate = useNavigate();
+    const [selectedWineTypes, setSelectedWineTypes] = useState([]);
+
+    const wineTypes = [
+        "Malvazija", "Muškat", "Chardonnay", "Rosé", "Teran", 
+        "Pinot", "Cabarnet Sauvignon", "Merlot", "Refošk"
+      ];
 
 
     useEffect(() => {
@@ -40,7 +46,7 @@ const WineriesPage = () => {
             } catch (error) {
                 setError(error.response?.data?.message || error.message);
             }finally {
-                setIsLoading(false); // Uvijek se izvrši
+                setIsLoading(false);
             }
         };
 
@@ -53,7 +59,34 @@ const WineriesPage = () => {
                     <div className="spinner"></div>
                 </div>
                 )}
-            {wineries && wineries.map((winery) => (
+            {!isLoading && (
+                <div className="filter-container">
+                    <span className="filter-label">FILTRIRAJ PO VRSTAMA VINA:</span>
+                    <div className="checkbox-group">
+                    {wineTypes.map((wine) => (
+                        <label key={wine}>
+                        <input
+                            type="checkbox"
+                            value={wine}
+                            checked={selectedWineTypes.includes(wine)}
+                            onChange={(e) => {
+                            if (e.target.checked) {
+                                setSelectedWineTypes([...selectedWineTypes, wine]);
+                            } else {
+                                setSelectedWineTypes(selectedWineTypes.filter(w => w !== wine));
+                            }
+                            }}
+                        />
+                        {wine}
+                        </label>
+                    ))}
+                    </div>
+                </div>
+            )}
+            {wineries && wineries.filter(winery => 
+                    selectedWineTypes.length === 0 || 
+                    (selectedWineTypes.every(wine => winery.wines.includes(wine)))
+                ).map((winery) => (
                 <div key={winery.id} className="winery-details">
                     <img 
                         src={`data:image/jpeg;base64,${winery.photo}`} 
@@ -78,6 +111,6 @@ const WineriesPage = () => {
         
     );
 
-}
+};
 
 export default WineriesPage;
