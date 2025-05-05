@@ -350,7 +350,7 @@ const ProfilePage = () => {
                     <div>
                     <label>Vrste vina:</label>
                     <div>
-                        {["Malvazija", "Muškat", "Chardonnay", "Rose", "Teran", "Pinot", "Cabarnet Sauvignon", "Merlot", "Refošk"].map((wine) => (
+                        {["Malvazija", "Muškat", "Chardonnay", "Rosé", "Teran", "Pinot", "Cabarnet Sauvignon", "Merlot", "Refošk"].map((wine) => (
                         <div key={wine}>
                             <label>
                             <input
