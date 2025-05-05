@@ -282,7 +282,9 @@ const SaveReservationPage  = () => {
       };
 
 
-      if (isLoading) return <p>Učitavanje...</p>;
+      if (isLoading) {
+        return <div className="spinner-overlay"><div className="spinner"></div></div>;
+      }
 
       return(
         <div className="save-reservation">
