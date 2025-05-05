@@ -12,7 +12,7 @@ const WineriesPage = () => {
 
     const wineTypes = [
         "Malvazija", "Muškat", "Chardonnay", "Rosé", "Teran", 
-        "Pinot", "Cabarnet Sauvignon", "Merlot", "Refošk"
+        "Pinot", "Cabernet Sauvignon", "Merlot", "Refošk"
       ];
 
 

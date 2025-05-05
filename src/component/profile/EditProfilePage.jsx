@@ -218,7 +218,7 @@ const EditProfilePage = () => {
                         <label>Poslužujete hranu? <input type="checkbox" name="food" checked={winery.food} onChange={handleWineryChange} /></label>
                         <label>Vrste vina:</label>
                         <div className="wines-checkbox-group">
-                            {["Malvazija", "Muškat", "Chardonnay", "Rosé", "Teran", "Pinot", "Cabarnet Sauvignon", "Merlot", "Refošk"].map((wineName) => (
+                            {["Malvazija", "Muškat", "Chardonnay", "Rosé", "Teran", "Pinot", "Cabernet Sauvignon", "Merlot", "Refošk"].map((wineName) => (
                                 <label key={wineName} style={{ display: 'block', marginBottom: '5px' }}>
                                     <input
                                         type="checkbox"
