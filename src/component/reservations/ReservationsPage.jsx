@@ -303,7 +303,7 @@ const ReservationsPage = () => {
                         <p><strong>Datum rezervacije:</strong> {reservation.date}</p>
                         <p><strong>Termin:</strong> {reservation.startTime} - {reservation.endTime}</p>
                         <p><strong>Broj gostiju:</strong> {reservation.numberOfGuests}</p>
-                        <p><strong>Ukupna cijena:</strong> {reservation.totalPrice}</p>
+                        <p><strong>Ukupna cijena:</strong> {reservation.totalPrice}€</p>
                     </div>
                 </div>
                 ))}
@@ -313,10 +313,11 @@ const ReservationsPage = () => {
                 {winemakerReservations && winemakerReservations.map((reservation) => (
                 <div key={reservation.id} className="winemaker-card">
                     <p><strong>Kupac:</strong> {reservation.user.name} {reservation.user.lastname}</p>
+                    <p><strong>Odabrana ponuda:</strong> {reservation.offer}</p>
                     <p><strong>Datum rezervacije:</strong> {reservation.date}</p>
                     <p><strong>Termin:</strong> {reservation.startTime} - {reservation.endTime}</p>
                     <p><strong>Broj gostiju:</strong> {reservation.numberOfGuests}</p>
-                    <p><strong>Ukupna cijena:</strong> {reservation.totalPrice}</p>
+                    <p><strong>Ukupna cijena:</strong> {reservation.totalPrice}€</p>
                     {reservation.state === "PENDING" && (
                         <div className="card-buttons">
                             <button 

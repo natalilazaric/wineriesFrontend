@@ -2,6 +2,10 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## API Kolekcija (Postman)
+
+Za pregled i testiranje svih API zahtjeva možete koristiti ovu [Postman kolekciju](https://elements.getpostman.com/redirect?entityId=30691686-4e6a97c1-1234-4901-b5cd-acfe32979bca&entityType=collection).
+
 ## Available Scripts
 
 In the project directory, you can run:
